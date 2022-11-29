@@ -20,3 +20,8 @@ C:\Users\Osama\Desktop\Task 4\[Students]_Template - Copy\InventorySimulation\Inv
 C:\Users\Osama\Desktop\Task 4\[Students]_Template - Copy\InventorySimulation\InventoryModels\bin\Debug\InventoryModels.pdb
 C:\Users\Osama\Desktop\Task 4\[Students]_Template - Copy\InventorySimulation\InventoryModels\obj\Debug\InventoryModels.dll
 C:\Users\Osama\Desktop\Task 4\[Students]_Template - Copy\InventorySimulation\InventoryModels\obj\Debug\InventoryModels.pdb
+C:\Users\dell\Desktop\kolia\fer2a 4\Term 1\Modelling and Simulation\Tasks\Task3\[Students]_Template\InventorySimulation\InventoryModels\bin\Debug\InventoryModels.dll
+C:\Users\dell\Desktop\kolia\fer2a 4\Term 1\Modelling and Simulation\Tasks\Task3\[Students]_Template\InventorySimulation\InventoryModels\bin\Debug\InventoryModels.pdb
+C:\Users\dell\Desktop\kolia\fer2a 4\Term 1\Modelling and Simulation\Tasks\Task3\[Students]_Template\InventorySimulation\InventoryModels\obj\Debug\InventoryModels.csproj.CoreCompileInputs.cache
+C:\Users\dell\Desktop\kolia\fer2a 4\Term 1\Modelling and Simulation\Tasks\Task3\[Students]_Template\InventorySimulation\InventoryModels\obj\Debug\InventoryModels.dll
+C:\Users\dell\Desktop\kolia\fer2a 4\Term 1\Modelling and Simulation\Tasks\Task3\[Students]_Template\InventorySimulation\InventoryModels\obj\Debug\InventoryModels.pdb
