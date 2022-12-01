@@ -79,9 +79,9 @@ namespace InventorySimulation
         {
 
             if (system != null)
-            {
-                system.Simulate();
+            {   
                 Output output = new Output(system);
+                system.Simulate();
                 output.Show();
                 string result = TestingManager.Test(system, fileName);
                 MessageBox.Show(result);

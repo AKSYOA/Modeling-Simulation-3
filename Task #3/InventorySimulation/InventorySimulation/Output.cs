@@ -26,6 +26,8 @@ namespace InventorySimulation
 
         private void Output_Load(object sender, EventArgs e)
         {
+            AvergaeEnding.Text = system.PerformanceMeasures.EndingInventoryAverage.ToString();
+            AvergaeShortage.Text = system.PerformanceMeasures.ShortageQuantityAverage.ToString();
             outputDataGridView.Rows.Clear();
             foreach (SimulationCase oneCase in system.SimulationTable) {
 
@@ -43,10 +45,8 @@ namespace InventorySimulation
                 outputDataGridView.Rows.Add(Day,Cycle,DayWithin,Begining,RandomDemand,Demand,End,Shortage,
                     OrderQuantity,RandomLead,LeadTime);
             }
-            AvergaeEnding.Text = system.PerformanceMeasures.EndingInventoryAverage.ToString();
-            AvergaeShortage.Text = system.PerformanceMeasures.ShortageQuantityAverage.ToString();
-
-
+            
+           
         }
     }
 }

@@ -79,7 +79,8 @@ namespace InventoryModels
         }
         public void createTableUsingCustomersNo()
         {
-            int Cycle = 0;
+            SimulationTable = new List<SimulationCase>();
+            int Cycle = 1;
             int DayWithinCycle = 0;
             int index = 0;
             int LeadQuantity = 0;
@@ -90,12 +91,32 @@ namespace InventoryModels
                 if (Day == 1)
                 {
                     oneCase.BeginningInventory = StartInventoryQuantity;
-                }    
+                    oneCase.RandomDemand = random.Next(1, 100);
+                    oneCase.Demand = demandDest(oneCase);
+                    oneCase.ShortageQuantity = 0;
+                    oneCase.Day = Day;
+                    oneCase.Cycle = 1;
+                    oneCase.DayWithinCycle = 1;
+                    oneCase.EndingInventory = oneCase.BeginningInventory - oneCase.Demand;
+                    if (oneCase.BeginningInventory >= oneCase.Demand)//get endingInventory and shortage Values
+                    {
+                        oneCase.EndingInventory = oneCase.BeginningInventory - oneCase.Demand ;
+                        oneCase.ShortageQuantity = 0;
+                    }
+                    else
+                    {
+                        oneCase.EndingInventory = 0;
+                        oneCase.ShortageQuantity = oneCase.Demand - oneCase.BeginningInventory;
+                    }
+
+                    SimulationTable.Add(oneCase);
+                    continue;
+                }
                 else
                 {
-                    oneCase.BeginningInventory = SimulationTable[SimulationTable.Count - 1].EndingInventory;             
+                    oneCase.BeginningInventory = SimulationTable[SimulationTable.Count - 1].EndingInventory ;             
                 }
-                if (Day == index)
+                if (Day-1 == index)
                 {
                     oneCase.BeginningInventory += LeadQuantity;
                     LeadQuantity = 0;
@@ -105,19 +126,18 @@ namespace InventoryModels
                 {
                     oneCase.BeginningInventory += StartOrderQuantity;
                 }
-
                 oneCase.RandomDemand = random.Next(1, 100);
                 oneCase.Demand = demandDest(oneCase);
 
-                if (oneCase.BeginningInventory >= oneCase.Demand)//get endingInventory and shortage Values
+                if (oneCase.BeginningInventory >= oneCase.Demand+ SimulationTable[SimulationTable.Count - 1].ShortageQuantity)//get endingInventory and shortage Values
                 {
-                    oneCase.EndingInventory = oneCase.BeginningInventory - oneCase.Demand;
+                    oneCase.EndingInventory = oneCase.BeginningInventory - oneCase.Demand- SimulationTable[SimulationTable.Count - 1].ShortageQuantity;
                     oneCase.ShortageQuantity = 0;
                 }
                 else
-                {
+                {   
                     oneCase.EndingInventory = 0;
-                    oneCase.ShortageQuantity = oneCase.Demand - oneCase.BeginningInventory;
+                    oneCase.ShortageQuantity = oneCase.Demand - oneCase.BeginningInventory+ SimulationTable[SimulationTable.Count - 1].ShortageQuantity;
                 }
 
                 if (Day % ReviewPeriod == 0)//begining of cycle
@@ -171,14 +191,14 @@ namespace InventoryModels
             return 0;
         }
         public void AveragePerformance() {
-          int aveEnding = 0;
-           int aveShort = 0;
+          decimal aveEnding = 0;
+           decimal aveShort = 0;
         foreach(SimulationCase oneCase  in SimulationTable){
                 aveEnding += oneCase.EndingInventory;
                 aveShort += oneCase.ShortageQuantity;
             }
             aveEnding /= SimulationTable.Count;
-            aveEnding /= SimulationTable.Count;
+            aveShort /= SimulationTable.Count;
             this.PerformanceMeasures.EndingInventoryAverage = aveEnding;
             this.PerformanceMeasures.ShortageQuantityAverage = aveShort;
         }
