@@ -10,11 +10,11 @@ namespace InventoryModels
     {
         public SimulationSystem()
         {
-            DemandDistribution = new List<Distribution>();
-            LeadDaysDistribution = new List<Distribution>();
-            SimulationTable = new List<SimulationCase>();
-            PerformanceMeasures = new PerformanceMeasures();
-            random=new Random();
+            this.DemandDistribution = new List<Distribution>();
+            this.LeadDaysDistribution = new List<Distribution>();
+            this.SimulationTable = new List<SimulationCase>();
+            this.PerformanceMeasures = new PerformanceMeasures();
+            this.random=new Random();
         }
 
         ///////////// INPUTS /////////////
@@ -42,8 +42,6 @@ namespace InventoryModels
             AveragePerformance();
         }
 
-
-
         public void calculateCummProbability() {
 
             for (int i = 0; i < DemandDistribution.Count; i++)
@@ -55,8 +53,8 @@ namespace InventoryModels
 
                 }
                 else {
-                    DemandDistribution[i].CummProbability = DemandDistribution[i-1].Probability+ DemandDistribution[i].Probability;
-                    DemandDistribution[i].MinRange = DemandDistribution[i-1].MaxRange;
+                    DemandDistribution[i].CummProbability = DemandDistribution[i-1].CummProbability+ DemandDistribution[i].Probability;
+                    DemandDistribution[i].MinRange = DemandDistribution[i-1].MaxRange + 1;
 
 
                 }
@@ -67,13 +65,13 @@ namespace InventoryModels
             {
                 if (i == 0)
                 {
-                    LeadDaysDistribution[i].CummProbability = DemandDistribution[i].Probability;
+                    LeadDaysDistribution[i].CummProbability = LeadDaysDistribution[i].Probability;
                     LeadDaysDistribution[i].MinRange = 1;
                 }
                 else
                 {
-                    LeadDaysDistribution[i].CummProbability = LeadDaysDistribution[i - 1].Probability + LeadDaysDistribution[i].Probability;
-                    LeadDaysDistribution[i].MinRange = LeadDaysDistribution[i - 1].MaxRange;
+                    LeadDaysDistribution[i].CummProbability = LeadDaysDistribution[i - 1].CummProbability + LeadDaysDistribution[i].Probability;
+                    LeadDaysDistribution[i].MinRange = LeadDaysDistribution[i - 1].MaxRange + 1;
                 }
                 LeadDaysDistribution[i].MaxRange = Decimal.ToInt32(LeadDaysDistribution[i].CummProbability * 100);
 
@@ -156,7 +154,7 @@ namespace InventoryModels
             for (int i = 0; i < DemandDistribution.Count; i++)
             {
                 if (oneCase.RandomDemand <= DemandDistribution[i].MaxRange &&
-                    oneCase.RandomDemand > DemandDistribution[i].MinRange)
+                    oneCase.RandomDemand >= DemandDistribution[i].MinRange)
                     return DemandDistribution[i].Value;
             }
             return 0;
@@ -167,7 +165,7 @@ namespace InventoryModels
             for (int i = 0; i < LeadDaysDistribution.Count; i++)
             {
                 if (oneCase.RandomLeadDays <= LeadDaysDistribution[i].MaxRange &&
-                    oneCase.RandomLeadDays > LeadDaysDistribution[i].MinRange)
+                    oneCase.RandomLeadDays >= LeadDaysDistribution[i].MinRange)
                     return LeadDaysDistribution[i].Value;
             }
             return 0;

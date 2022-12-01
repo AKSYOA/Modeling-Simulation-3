@@ -8,6 +8,10 @@ namespace InventoryModels
 {
     public class Distribution
     {
+        public Distribution()
+        {
+
+        }
         public Distribution(int Value,decimal Probability)
         {
             this.Value = Value;
